@@ -1,7 +1,7 @@
 import LightDarkModeButton from "./LightDarkModeButton";
 import { Link } from "react-router-dom";
 
-const MenuMobile = () => {
+const MenuMobile = (props) => {
 	return (
 		<div className="hidden menu-mobile pt-3 pb-6">
 			<Link
@@ -13,7 +13,7 @@ const MenuMobile = () => {
 			<Link to="/AboutUs" className="linkNavItem flex justify-center mb-5">
 				About Us
 			</Link>
-			<LightDarkModeButton />
+			<LightDarkModeButton setTheme={props.setTheme} />
 		</div>
 	);
 };

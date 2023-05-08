@@ -1,4 +1,4 @@
-const LightDarkModeButton = () => {
+const LightDarkModeButton = (props) => {
 	return (
 		<div className="button darkMode flex justify-center">
 			<button
@@ -9,6 +9,7 @@ const LightDarkModeButton = () => {
 					document.querySelector("body").classList.remove("bg-gray-900");
 					document.querySelector("#lightButton").classList.add("innerShadow");
 					document.querySelector("#darkButton").classList.remove("innerShadow");
+					props.setTheme("light");
 				}}
 			>
 				<i class="fa-solid fa-sun"></i>
@@ -23,6 +24,7 @@ const LightDarkModeButton = () => {
 						.querySelector("#lightButton")
 						.classList.remove("innerShadow");
 					document.querySelector("#darkButton").classList.add("innerShadow");
+					props.setTheme("dark");
 				}}
 			>
 				<i class="fa-solid fa-moon"></i>

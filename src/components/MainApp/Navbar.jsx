@@ -4,7 +4,7 @@ import LightDarkModeButton from "./LightDarkModeButton";
 import logo from "../../asset/img/Logo.png";
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = (props) => {
 	return (
 		<div className="navbar bg-slate-50 shadow-md fixed w-full z-50 top-0 dark:text-white dark:bg-gray-800">
 			<div className="container mx-auto py-5 px-5 lg:px-0 flex justify-between items-center">
@@ -18,11 +18,11 @@ const NavBar = () => {
 				<div className="hidden md:flex items-center gap-8 linkNav">
 					<Link to="/">Home</Link>
 					<Link to="/AboutUs">About Us</Link>
-					<LightDarkModeButton />
+					<LightDarkModeButton setTheme={props.setTheme} />
 				</div>
 				<NavbarButton />
 			</div>
-			<MenuMobile />
+			<MenuMobile setTheme={props.setTheme} />
 		</div>
 	);
 };

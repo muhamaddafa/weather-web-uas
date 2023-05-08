@@ -25,6 +25,7 @@ function App() {
 	const temperatureTitle = "Temperature";
 	const [mainData, setMainData] = useState("");
 	const [ChartData, setChartData] = useState("");
+	const [theme, setTheme] = useState("light");
 	const [forecastPeriod, setForecastPeriod] = useState("today");
 	const [varKota, setVarKota] = useState("Tangerang");
 	const [icon0, setIcon0] = useState("");
@@ -145,10 +146,11 @@ function App() {
 		satuanSuhu,
 		slicing,
 		timeSet,
+		theme,
 	]);
 	return (
 		<>
-			<NavBar />
+			<NavBar setTheme={setTheme} />
 			<div className="container mx-auto py-5 px-5 lg:px-0 lg:grid lg:grid-cols-12 gap-4 dark:text-white">
 				<div className="main col-span-4">
 					<SearchBar setVarKota={setVarKota} />
@@ -220,7 +222,7 @@ function App() {
 					<h1 className="mb-3 text-lg font-semibold ps-1 mt-9">
 						Weekly Highlight
 					</h1>
-					<Chart data={ChartData} satuanSuhu={satuanSuhu} />
+					<Chart data={ChartData} satuanSuhu={satuanSuhu} theme={theme} />
 					<h1 className="mb-3 text-lg font-semibold ps-1 mt-1">
 						Today's Highlight
 					</h1>

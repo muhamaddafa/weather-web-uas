@@ -4,7 +4,9 @@ const Chart = (props) => {
 	const data = props.data;
 	console.log(data);
 
-	const humidityValues = data.list?.map((item) => item.main.humidity);
+	const humidityValues = data.list?.map((item) =>
+		item.main.humidity.toFixed(0)
+	);
 
 	const windValues = data.list?.map((item) => {
 		let hasil = parseInt(item.wind.speed.toFixed(0));
@@ -14,16 +16,16 @@ const Chart = (props) => {
 	const tempValues = data.list?.map((item) => {
 		let suhuFinal;
 		if (props.satuanSuhu === "C") {
-			suhuFinal = (item.main.temp - 273.15).toFixed(0);
+			suhuFinal = item.main.temp - 273.15;
 		} else {
 			suhuFinal = Math.ceil((item.main.temp - 273.15) * 1.8 + 32);
 		}
-		let hasil = suhuFinal;
+		let hasil = suhuFinal.toFixed(0);
 		return hasil;
 	});
 
 	const visibilityValues = data.list?.map((item) => {
-		let hasil = item.visibility / 1000;
+		let hasil = (item.visibility / 1000).toFixed(0);
 		return hasil;
 	});
 
@@ -52,6 +54,9 @@ const Chart = (props) => {
 			chart: {
 				height: 300,
 				type: "area",
+			},
+			theme: {
+				mode: props.theme,
 			},
 			legend: {
 				show: false,
