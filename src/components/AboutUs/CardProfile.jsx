@@ -1,25 +1,6 @@
-import icon1 from "../../asset/img/javascript-logo.png";
-import icon2 from "../../asset/img/css-logo.png";
-import icon3 from "../../asset/img/html-logo.png";
-
 const CardProfile = (props) => {
 	return (
 		<div className="CardProfile lg:w-72 w-80 shadow-lg rounded-xl relative">
-			<img
-				src={icon1}
-				alt="icon"
-				className="absolute w-20 -left-8 top-10 rotate-12 iconElement"
-			/>
-			<img
-				src={icon2}
-				alt="icon"
-				className="absolute w-20 -right-8 top-60 rotate-12 iconElement"
-			/>
-			<img
-				src={icon3}
-				alt="icon"
-				className="absolute w-20 -left-8 top-3/4 rotate-12 iconElement"
-			/>
 			<img
 				src={props.foto}
 				alt={`Foto ${props.nama}`}

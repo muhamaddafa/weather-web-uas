@@ -4,7 +4,7 @@ const SearchBar = (props) => {
 	return (
 		<div
 			id="searchBar"
-			className="SearchBar bg-slate-50 shadow-md hover:shadow-lg w-full md:w-full rounded-2xl p-3 flex dark:bg-gray-800 mb-5"
+			className="SearchBar bg-slate-50 shadow-md hover:shadow-lg w-full md:w-full rounded-2xl p-3 flex dark:bg-gray-800 mb-4"
 		>
 			<img src={SearchIcon} alt="Icon Search" />
 			<input
