@@ -18,108 +18,108 @@ import wthr50d from "../../asset/img/50d.svg";
 import wthr50n from "../../asset/img/50n.svg";
 
 const CardForecast = (props) => {
-	const now = new Date();
-	const localTime = now.getTime();
-	const localOffset = now.getTimezoneOffset() * 60000;
-	const utc = localTime + localOffset;
-	const timeZone = utc + 1000 * props.timezoneOffset;
-	const date = new Date(timeZone);
-	const day = date.toLocaleString("en-US", { weekday: "long" });
-	const time = date.toLocaleString("en-US", {
-		hour: "numeric",
-		minute: "numeric",
-		hour12: true,
-	});
+  const now = new Date();
+  const localTime = now.getTime();
+  const localOffset = now.getTimezoneOffset() * 60000;
+  const utc = localTime + localOffset;
+  const timeZone = utc + 1000 * props.timezoneOffset;
+  const date = new Date(timeZone);
+  const day = date.toLocaleString("en-US", { weekday: "long" });
+  const time = date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
 
-	let hasilSuhu;
-	if (props.satuanSuhu === "C") {
-		hasilSuhu = Math.ceil(((props.temperature - 32) * 5) / 9);
-	} else {
-		hasilSuhu = props.temperature.toFixed(1);
-	}
+  let hasilSuhu;
+  if (props.satuanSuhu === "C") {
+    hasilSuhu = Math.floor(props.temperature - 273.15);
+  } else {
+    hasilSuhu = Math.floor((props.temperature - 273.15) * 1.8 + 32);
+  }
 
-	let iconFinal;
-	switch (props.iconWeather) {
-		case "01d":
-			iconFinal = wthr01d;
-			break;
-		case "01n":
-			iconFinal = wthr01n;
-			break;
-		case "02d":
-			iconFinal = wthr02d;
-			break;
-		case "02n":
-			iconFinal = wthr02n;
-			break;
-		case "03d":
-			iconFinal = wthr03d;
-			break;
-		case "03n":
-			iconFinal = wthr03n;
-			break;
-		case "04d":
-			iconFinal = wthr04d;
-			break;
-		case "04n":
-			iconFinal = wthr04n;
-			break;
-		case "09d":
-			iconFinal = wthr09d;
-			break;
-		case "09n":
-			iconFinal = wthr09n;
-			break;
-		case "10d":
-			iconFinal = wthr10d;
-			break;
-		case "10n":
-			iconFinal = wthr10n;
-			break;
-		case "11d":
-			iconFinal = wthr11d;
-			break;
-		case "11n":
-			iconFinal = wthr11n;
-			break;
-		case "13d":
-			iconFinal = wthr13d;
-			break;
-		case "13n":
-			iconFinal = wthr13n;
-			break;
-		case "50d":
-			iconFinal = wthr50d;
-			break;
-		case "50n":
-			iconFinal = wthr50n;
-			break;
-		default:
-			break;
-	}
+  let iconFinal;
+  switch (props.iconWeather) {
+    case "01d":
+      iconFinal = wthr01d;
+      break;
+    case "01n":
+      iconFinal = wthr01n;
+      break;
+    case "02d":
+      iconFinal = wthr02d;
+      break;
+    case "02n":
+      iconFinal = wthr02n;
+      break;
+    case "03d":
+      iconFinal = wthr03d;
+      break;
+    case "03n":
+      iconFinal = wthr03n;
+      break;
+    case "04d":
+      iconFinal = wthr04d;
+      break;
+    case "04n":
+      iconFinal = wthr04n;
+      break;
+    case "09d":
+      iconFinal = wthr09d;
+      break;
+    case "09n":
+      iconFinal = wthr09n;
+      break;
+    case "10d":
+      iconFinal = wthr10d;
+      break;
+    case "10n":
+      iconFinal = wthr10n;
+      break;
+    case "11d":
+      iconFinal = wthr11d;
+      break;
+    case "11n":
+      iconFinal = wthr11n;
+      break;
+    case "13d":
+      iconFinal = wthr13d;
+      break;
+    case "13n":
+      iconFinal = wthr13n;
+      break;
+    case "50d":
+      iconFinal = wthr50d;
+      break;
+    case "50n":
+      iconFinal = wthr50n;
+      break;
+    default:
+      break;
+  }
 
-	return (
-		<div className="CardForecast bg-slate-50 shadow-lg w-auto lg:w-full rounded-2xl mb-4 py-8 dark:bg-gray-800 dark:shadow-gray-900">
-			<div className="CardContent flex lg:flex-col items-center justify-around lg:justify-normal">
-				<div className="image">
-					<img src={iconFinal} alt="Weather" className="w-40 lg:w-64" />
-				</div>
-				<div className="description ml-5 lg:mt-10 lg:w-full lg:px-5 dark:text-white">
-					<h1 className="text-4xl font-medium mb-3 lg:mb-6 lg:text-7xl">
-						{hasilSuhu}&deg;{props.satuanSuhu}
-					</h1>
-					<div className="hariDanJam flex mb-3">
-						<p>{day},</p>
-						<p className="ml-2 opacity-50 font-medium">{time}</p>
-					</div>
-					<div className="keterangan mb-3">
-						<p>{props.description}</p>
-					</div>
-					<p>{props.cityName}</p>
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="CardForecast bg-slate-50 shadow-lg w-auto lg:w-full rounded-2xl mb-4 py-8 dark:bg-gray-800 dark:shadow-gray-900">
+      <div className="CardContent flex lg:flex-col items-center justify-around lg:justify-normal">
+        <div className="image">
+          <img src={iconFinal} alt="Weather" className="w-40 lg:w-64" />
+        </div>
+        <div className="description ml-5 lg:mt-10 lg:w-full lg:px-5 dark:text-white">
+          <h1 className="text-4xl font-medium mb-3 lg:mb-6 lg:text-7xl">
+            {hasilSuhu}&deg;{props.satuanSuhu}
+          </h1>
+          <div className="hariDanJam flex mb-3">
+            <p>{day},</p>
+            <p className="ml-2 opacity-50 font-medium">{time}</p>
+          </div>
+          <div className="keterangan mb-3">
+            <p>{props.description}</p>
+          </div>
+          <p>{props.cityName}</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default CardForecast;
