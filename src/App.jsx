@@ -6,6 +6,7 @@ import Geocode from "react-geocode";
 import CardForecast from "./components/MainApp/CardForecast";
 import DayForecast from "./components/MainApp/DayForecast";
 import Highlight from "./components/MainApp/Highlight";
+import HeatMap from "./components/MainApp/HeatMap";
 import NavBar from "./components/MainApp/Navbar";
 import ConverButton from "./components/MainApp/ConvertButton";
 import SearchBar from "./components/MainApp/SearchBar";
@@ -13,7 +14,7 @@ import TodayWeekButton from "./components/MainApp/TodayWeekButton";
 import Footer from "./components/MainApp/Footer";
 import humidityIcon from "./asset/img/humidityIcon.svg";
 import windIcon from "./asset/img/windStatusIcon.svg";
-import temperatureIcon from "./asset/img/temperatureIcon.svg";
+import pressureIcon from "./asset/img/pressureIcon.svg";
 import visibilityIcon from "./asset/img/visibilityIcon.svg";
 import { useState, useEffect } from "react";
 import Chart from "./components/MainApp/Chart";
@@ -22,12 +23,12 @@ function App() {
 	const humditiyTitle = "Humidity";
 	const visibilityTitle = "Visibility";
 	const windTitle = "Wind Status";
-	const temperatureTitle = "Temperature";
+	const pressureTitle = "Pressure";
 	const [mainData, setMainData] = useState("");
 	const [ChartData, setChartData] = useState("");
 	const [theme, setTheme] = useState("light");
 	const [forecastPeriod, setForecastPeriod] = useState("today");
-	const [varKota, setVarKota] = useState("Tangerang");
+	const [varKota, setVarKota] = useState("");
 	const [icon0, setIcon0] = useState("");
 	const [icon1, setIcon1] = useState("");
 	const [icon2, setIcon2] = useState("");
@@ -54,6 +55,27 @@ function App() {
 	const satuan = "";
 
 	useEffect(() => {
+		const success = (position) => {
+			const lat = position.coords.latitude;
+			const lng = position.coords.longitude;
+			Geocode.fromLatLng(`${lat}`, `${lng}`).then(
+				(response) => {
+					const address = response.results[0].formatted_address;
+					setVarKota(address);
+					console.log(address);
+				},
+				(error) => {
+					console.error(error);
+				}
+			);
+		};
+		const error = () => {
+			console.log("ERROR");
+		};
+		navigator.geolocation.getCurrentPosition(success, error);
+	}, []);
+
+	useEffect(() => {
 		Geocode.setApiKey("AIzaSyA-fSQhO00teTl-vSip_I9qYh-zaedPv-A");
 		const options = {
 			method: "GET",
@@ -62,7 +84,7 @@ function App() {
 				"X-RapidAPI-Host": "open-weather13.p.rapidapi.com",
 			},
 		};
-		Geocode.fromAddress(varKota).then(
+		Geocode.fromAddress(`${varKota}`).then(
 			(response) => {
 				let { lat, lng } = response.results[0].geometry.location;
 				fetch(
@@ -151,7 +173,7 @@ function App() {
 	return (
 		<>
 			<NavBar setTheme={setTheme} />
-			<div className="container mx-auto py-5 px-5 lg:px-0 lg:grid lg:grid-cols-12 gap-4 dark:text-white">
+			<div className="container mx-auto pb-2 pt-5 px-5 lg:px-0 lg:grid lg:grid-cols-12 gap-4 dark:text-white">
 				<div className="main col-span-4">
 					<SearchBar setVarKota={setVarKota} />
 					<CardForecast
@@ -219,20 +241,37 @@ function App() {
 							/>
 						</div>
 					</div>
-					<h1 className="mb-3 text-lg font-semibold ps-1 mt-9">
+					<h1 className="mb-3 text-lg font-semibold ps-1 mt-6">
 						Weekly Highlight
 					</h1>
 					<Chart data={ChartData} satuanSuhu={satuanSuhu} theme={theme} />
-					<h1 className="mb-3 text-lg font-semibold ps-1 mt-1">
-						Today's Highlight
-					</h1>
-					<div className="Information grid grid-cols-12 gap-4">
+				</div>
+			</div>
+
+			<div className="container mx-auto pb-5 px-5 lg:px-0 dark:text-white">
+				<h1 className="mb-3 text-lg font-semibold ps-1 mt-1">
+					Today's Highlight
+				</h1>
+				<div className="lg:px-0 lg:grid lg:grid-cols-12 gap-4">
+					<div className="HeatMap col-span-4 lg:mb-0 mb-4">
+						<HeatMap />
+					</div>
+					<div className="todayHighlight col-span-8 grid grid-cols-12 gap-4">
 						<div className="col-span-6">
 							<Highlight
 								icon={humidityIcon}
 								title={humditiyTitle}
 								value={mainData.main?.humidity + "%"}
 								stat={hitungKelembapan(mainData.main?.humidity)}
+								satuan={satuan}
+							/>
+						</div>
+						<div className="col-span-6">
+							<Highlight
+								icon={pressureIcon}
+								title={pressureTitle}
+								value={mainData.main?.pressure + " hPa"}
+								stat={hitungVisibility(mainData.visibility)}
 								satuan={satuan}
 							/>
 						</div>
@@ -247,18 +286,6 @@ function App() {
 						</div>
 						<div className="col-span-6">
 							<Highlight
-								icon={temperatureIcon}
-								title={temperatureTitle}
-								value={
-									hitungMinTemp(mainData.main?.temp_min, satuanSuhu) +
-									String.fromCharCode(176)
-								}
-								stat={"Min. Temp"}
-								satuan={satuanSuhu}
-							/>
-						</div>
-						<div className="col-span-6">
-							<Highlight
 								icon={visibilityIcon}
 								title={visibilityTitle}
 								value={mainData.visibility / 1000 + " km"}
@@ -269,6 +296,7 @@ function App() {
 					</div>
 				</div>
 			</div>
+
 			<Footer />
 		</>
 	);
@@ -301,14 +329,14 @@ const hitungVisibility = (nilai) => {
 	return hasil;
 };
 
-const hitungMinTemp = (nilai, satuan) => {
-	let hasil;
-	if (satuan === "C") {
-		hasil = Math.floor(nilai - 273.15);
-	} else {
-		hasil = Math.floor((nilai - 273.15) * 1.8 + 32);
-	}
-	return hasil;
-};
+// const hitungMinTemp = (nilai, satuan) => {
+// 	let hasil;
+// 	if (satuan === "C") {
+// 		hasil = Math.floor(nilai - 273.15);
+// 	} else {
+// 		hasil = Math.floor((nilai - 273.15) * 1.8 + 32);
+// 	}
+// 	return hasil;
+// };
 
 export default App;
