@@ -2,7 +2,6 @@ import ReactApexChart from "react-apexcharts";
 
 const Chart = (props) => {
 	const data = props.data;
-	console.log(data);
 
 	const humidityValues = data.list?.map((item) =>
 		item.main.humidity.toFixed(0)
@@ -119,7 +118,7 @@ const Chart = (props) => {
 			options={chartOptions.options}
 			series={chartOptions.series}
 			type="area"
-			height={300}
+			height={263}
 		/>
 	);
 };
