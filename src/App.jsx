@@ -84,7 +84,7 @@ function App() {
 				"X-RapidAPI-Host": "open-weather13.p.rapidapi.com",
 			},
 		};
-		Geocode.fromAddress(`${varKota}`).then(
+		Geocode.fromAddress(varKota).then(
 			(response) => {
 				let { lat, lng } = response.results[0].geometry.location;
 				fetch(
@@ -186,7 +186,7 @@ function App() {
 					/>
 				</div>
 				<div className="addOn col-span-8">
-					<div className="flex lg:mt-0 justify-between h-12 p-1 mb-4">
+					<div className="flex lg:mt-0 justify-between p-1 mb-4 navToday">
 						<TodayWeekButton
 							setForecastPeriod={setForecastPeriod}
 							setTimeSet={setTimeSet}
