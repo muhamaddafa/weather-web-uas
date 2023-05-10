@@ -1,6 +1,6 @@
 const Highlight = (props) => {
 	return (
-		<div className="HighlightCard bg-slate-50 shadow-lg rounded-xl p-3 lg:px-6 h-full lg:py-8 border-gray-300 border-2 dark:bg-gray-800 dark:shadow-gray-900 dark:border-gray-500">
+		<div className="HighlightCard bg-slate-50 shadow-lg rounded-xl p-3 lg:px-6 lg:py-8 border-gray-300 border-2 dark:bg-gray-800 dark:shadow-gray-900 dark:border-gray-500">
 			<div className="HighlightContent">
 				<h1 className="Headline">{props.title}</h1>
 				<div className="isi flex justify-between my-12">
