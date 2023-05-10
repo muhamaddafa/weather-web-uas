@@ -1,4 +1,5 @@
 import SearchIcon from "../../asset/img/iconSearch.svg";
+import CurrentButton from "./CurrentButton";
 
 const SearchBar = (props) => {
 	return (
@@ -13,6 +14,7 @@ const SearchBar = (props) => {
 				placeholder="Enter City Name..."
 				className="ml-3 w-full focus:outline-none dark:bg-gray-800 bg-slate-50"
 				onKeyDown={function gantiKotaEnter(event) {
+					console.log(event);
 					if (event.key === "Enter") {
 						props.setVarKota(document.getElementById("inputCity").value);
 						document.getElementById("inputCity").blur();
@@ -23,6 +25,7 @@ const SearchBar = (props) => {
 					document.getElementById("inputCity").value = "";
 				}}
 			></input>
+			<CurrentButton setVarKota={props.setVarKota} />
 		</div>
 	);
 };

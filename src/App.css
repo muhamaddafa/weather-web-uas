@@ -24,3 +24,7 @@ a {
 	opacity: 1;
 	transition: opacity 0.3s ease-in-out;
 }
+
+.navToday {
+	height: 52.0781px;
+}
