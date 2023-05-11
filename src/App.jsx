@@ -261,17 +261,17 @@ function App() {
 							<Highlight
 								icon={humidityIcon}
 								title={humditiyTitle}
-								value={mainData.main?.humidity + "%"}
+								value={mainData.main?.humidity}
 								stat={hitungKelembapan(mainData.main?.humidity)}
-								satuan={satuan}
+								satuan={"%"}
 							/>
 						</div>
 						<div className="col-span-6">
 							<Highlight
 								icon={pressureIcon}
 								title={pressureTitle}
-								value={mainData.main?.pressure + " hPa"}
-								stat={hitungVisibility(mainData.visibility)}
+								value={mainData.main?.pressure}
+								stat={"hPa"}
 								satuan={satuan}
 							/>
 						</div>
@@ -279,18 +279,18 @@ function App() {
 							<Highlight
 								icon={windIcon}
 								title={windTitle}
-								value={mainData.wind?.speed?.toFixed(0) + " km/h"}
+								value={mainData.wind?.speed?.toFixed(0)}
 								stat={mainData.wind?.deg + String.fromCharCode(176)}
-								satuan={satuan}
+								satuan={" km/h"}
 							/>
 						</div>
 						<div className="col-span-6">
 							<Highlight
 								icon={visibilityIcon}
 								title={visibilityTitle}
-								value={mainData.visibility / 1000 + " km"}
+								value={mainData.visibility / 1000}
 								stat={hitungVisibility(mainData.visibility)}
-								satuan={satuan}
+								satuan={" km"}
 							/>
 						</div>
 					</div>
