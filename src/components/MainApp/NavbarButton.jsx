@@ -9,7 +9,7 @@ const NavbarButton = () => {
 				}}
 			>
 				<svg
-					class="w-6 h-6 dark:text-white ring-2 ring-black rounded-sm"
+					class="w-6 h-6 dark:text-white rounded-sm"
 					fill="none"
 					stroke-linecap="round"
 					stroke-linejoin="round"

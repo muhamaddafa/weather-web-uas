@@ -173,7 +173,7 @@ function App() {
 	return (
 		<>
 			<NavBar setTheme={setTheme} />
-			<div className="container mx-auto pb-2 pt-5 px-5 lg:px-0 lg:grid lg:grid-cols-12 gap-4 dark:text-white">
+			<div className="container mx-auto pb-2 pt-4 px-5 lg:px-0 lg:grid lg:grid-cols-12 gap-4 dark:text-white">
 				<div className="main col-span-4">
 					<SearchBar setVarKota={setVarKota} />
 					<CardForecast
