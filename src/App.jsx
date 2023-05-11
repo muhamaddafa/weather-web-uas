@@ -71,6 +71,7 @@ function App() {
 		};
 		const error = () => {
 			console.log("ERROR");
+			alert("PLEASE ACTIVATED YOUR LOCATION!!");
 		};
 		navigator.geolocation.getCurrentPosition(success, error);
 	}, []);
