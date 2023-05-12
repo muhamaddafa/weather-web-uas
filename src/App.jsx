@@ -64,7 +64,6 @@ function App() {
 				(response) => {
 					const address = response.results[0].formatted_address;
 					setVarKota(address);
-					console.log(address);
 				},
 				(error) => {
 					console.error(error);
