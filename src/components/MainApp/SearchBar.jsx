@@ -5,9 +5,6 @@ import { usePlacesWidget } from "react-google-autocomplete";
 const SearchBar = (props) => {
 	const { ref } = usePlacesWidget({
 		apiKey: "AIzaSyA-fSQhO00teTl-vSip_I9qYh-zaedPv-A",
-		onPlaceSelected: (place) => {
-			console.log(place);
-		},
 		options: {
 			types: ["establishment"],
 			componentRestrictions: { country: "id" },

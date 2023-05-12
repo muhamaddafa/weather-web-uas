@@ -6,7 +6,7 @@ import Geocode from "react-geocode";
 import CardForecast from "./components/MainApp/CardForecast";
 import DayForecast from "./components/MainApp/DayForecast";
 import Highlight from "./components/MainApp/Highlight";
-import HeatMap from "./components/MainApp/HeatMap";
+import Map from "./components/MainApp/Map";
 import NavBar from "./components/MainApp/Navbar";
 import ConverButton from "./components/MainApp/ConvertButton";
 import SearchBar from "./components/MainApp/SearchBar";
@@ -26,6 +26,8 @@ function App() {
 	const pressureTitle = "Pressure";
 	const [mainData, setMainData] = useState("");
 	const [ChartData, setChartData] = useState("");
+	const [latitude, setLat] = useState("");
+	const [longitude, setLng] = useState("");
 	const [theme, setTheme] = useState("light");
 	const [forecastPeriod, setForecastPeriod] = useState("today");
 	const [varKota, setVarKota] = useState("");
@@ -88,6 +90,8 @@ function App() {
 		Geocode.fromAddress(varKota).then(
 			(response) => {
 				let { lat, lng } = response.results[0].geometry.location;
+				setLat(lat);
+				setLng(lng);
 				fetch(
 					`https://open-weather13.p.rapidapi.com/city/latlon/${lat}/${lng}`,
 					options
@@ -255,7 +259,7 @@ function App() {
 				</h1>
 				<div className="lg:px-0 lg:grid lg:grid-cols-12 gap-4">
 					<div className="HeatMap col-span-4 lg:mb-0 mb-4">
-						<HeatMap />
+						<Map latitude={latitude} longitude={longitude} />
 					</div>
 					<div className="todayHighlight col-span-8 grid grid-cols-12 gap-4">
 						<div className="col-span-6">
