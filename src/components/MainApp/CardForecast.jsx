@@ -99,23 +99,25 @@ const CardForecast = (props) => {
 	}
 
 	return (
-		<div className="CardForecast bg-slate-50 shadow-lg w-auto lg:w-full rounded-2xl mb-4 py-8 dark:bg-gray-800 dark:shadow-gray-900">
-			<div className="CardContent flex lg:flex-col items-center justify-around lg:justify-normal">
+		<div className="CardForecast bg-slate-50 shadow-lg w-auto lg:w-full rounded-2xl mb-4 pt-6 pb-8 dark:bg-gray-800 dark:shadow-gray-900">
+			<div className="CardContent lg:flex-col items-center justify-around lg:justify-normal">
 				<div className="image">
-					<img src={iconFinal} alt="Weather" className="w-40 lg:w-64" />
+					<img src={iconFinal} alt="Weather" className="w-64 lg:w-64 mx-auto" />
 				</div>
-				<div className="description ml-5 lg:mt-10 lg:w-full lg:px-5 dark:text-white">
-					<h1 className="text-4xl font-medium mb-3 lg:mb-6 lg:text-7xl">
+				<div className="description lg:block flex justify-around gap-0 items-center lg:gap-0 lg:mt-10 lg:w-full lg:px-5 dark:text-white">
+					<h1 className="text-4xl font-medium mb-3 lg:mb-6 lg:text-7xl h-max">
 						{hasilSuhu}&deg;{props.satuanSuhu}
 					</h1>
-					<div className="hariDanJam flex mb-3">
-						<p>{day},</p>
-						<p className="ml-2 opacity-50 font-medium">{time}</p>
+					<div>
+						<div className="hariDanJam flex mb-3">
+							<p>{day},</p>
+							<p className="ml-2 opacity-50 font-medium">{time}</p>
+						</div>
+						<div className="keterangan mb-3">
+							<p>{props.description}</p>
+						</div>
+						<p>{props.cityName}</p>
 					</div>
-					<div className="keterangan mb-3">
-						<p>{props.description}</p>
-					</div>
-					<p>{props.cityName}</p>
 				</div>
 			</div>
 		</div>
