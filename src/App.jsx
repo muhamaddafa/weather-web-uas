@@ -257,7 +257,7 @@ function App() {
 					Today's Highlight
 				</h1>
 				<div className="lg:px-0 lg:grid lg:grid-cols-12 gap-4">
-					<div className="HeatMap col-span-4 lg:mb-0 mb-4">
+					<div className="HeatMap col-span-4 lg:mb-0 mb-4 order-2">
 						<Map latitude={latitude} longitude={longitude} />
 					</div>
 					<div className="todayHighlight col-span-8 grid grid-cols-12 gap-4">
