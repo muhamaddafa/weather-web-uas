@@ -105,10 +105,10 @@ const CardForecast = (props) => {
 					<img src={iconFinal} alt="Weather" className="w-64 lg:w-64 mx-auto" />
 				</div>
 				<div className="description lg:block flex-col lg:text-start text-center gap-0 items-center lg:gap-0 lg:mt-10 lg:w-full lg:px-5 dark:text-white">
-					<h1 className="text-7xl font-medium mb-3 lg:mb-6 lg:text-7xl h-max">
+					<h1 className="text-7xl font-medium mt-3 lg:mt-0 lg:mb-6 lg:text-7xl h-max">
 						{hasilSuhu}&deg;{props.satuanSuhu}
 					</h1>
-					<div className="mt-9 lg:mt-0">
+					<div className="mt-7 lg:mt-0">
 						<div className="hariDanJam flex justify-center lg:justify-start mb-3">
 							<p>{day},</p>
 							<p className="ml-2 opacity-50 font-medium">{time}</p>
