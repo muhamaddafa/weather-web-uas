@@ -78,11 +78,11 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		Geocode.setApiKey(env.GOOGLE_API_KEY);
+		Geocode.setApiKey("AIzaSyA-fSQhO00teTl-vSip_I9qYh-zaedPv-A");
 		const options = {
 			method: "GET",
 			headers: {
-				"X-RapidAPI-Key": env.RAPID_API_KEY,
+				"X-RapidAPI-Key": "22a04178f8msh37e274e8361cb41p160c4ajsnadd25e9680cd",
 				"X-RapidAPI-Host": "open-weather13.p.rapidapi.com",
 			},
 		};
