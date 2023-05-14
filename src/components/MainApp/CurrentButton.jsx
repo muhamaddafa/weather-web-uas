@@ -25,7 +25,7 @@ const CurrentButton = (props) => {
 	return (
 		<button
 			id="currentButton"
-			className="shadow-md p-1 rounded-full gpsButton"
+			className="p-1 rounded-full shadow-md gpsButton"
 			onClick={getAddress}
 		>
 			<img src={gpsIcon} alt="Icon GPS" />

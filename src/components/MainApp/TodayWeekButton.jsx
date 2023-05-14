@@ -3,7 +3,7 @@ const TodayWeekButton = (props) => {
 		<div>
 			<button
 				id="btnToday"
-				className="px-5 py-2 active hover:border-b-2 dark:duration-200 duration-200"
+				className="px-5 py-2 duration-200 active hover:border-b-2 dark:duration-200"
 				onClick={() => {
 					props.setForecastPeriod("today");
 					props.setSlcing([0, 5]);
@@ -21,7 +21,7 @@ const TodayWeekButton = (props) => {
 			</button>
 			<button
 				id="btnWeek"
-				className="px-5 py-2 hover:border-b-2 dark:duration-200 duration-200"
+				className="px-5 py-2 duration-200 hover:border-b-2 dark:duration-200"
 				onClick={() => {
 					props.setForecastPeriod("weekly");
 					props.setSlcing([5, 10]);

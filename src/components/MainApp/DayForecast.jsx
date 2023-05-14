@@ -86,11 +86,11 @@ const DayForecast = (props) => {
 	}
 	return (
 		<div className="cardDayForecast">
-			<div className="cardDayForecastContent text-center shadow-lg rounded-xl p-6 bg-slate-50 border-gray-300 border-2 dark:shadow-gray-900 dark:border-gray-500 dark:shadow-md dark:text-white dark:bg-gray-800">
+			<div className="p-6 text-center border-2 border-gray-300 shadow-lg cardDayForecastContent rounded-xl bg-slate-50 dark:shadow-gray-900 dark:border-gray-500 dark:shadow-md dark:text-white dark:bg-gray-800">
 				<div className="waktu">
 					<h1>{props.waktu}</h1>
 				</div>
-				<div className="imgForecast w-max my-3">
+				<div className="my-3 imgForecast w-max">
 					<img src={iconFinal} alt="Forecast" className="w-24" />
 				</div>
 				<div className="forecastTemp">
