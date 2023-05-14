@@ -177,8 +177,8 @@ function App() {
 	return (
 		<>
 			<NavBar setTheme={setTheme} />
-			<div className="container mx-auto pb-2 pt-4 px-5 lg:px-0 lg:grid lg:grid-cols-12 gap-4 dark:text-white">
-				<div className="main col-span-4">
+			<div className="container gap-4 px-5 pt-4 pb-2 mx-auto lg:px-0 lg:grid lg:grid-cols-12 dark:text-white">
+				<div className="col-span-4 main">
 					<SearchBar setVarKota={setVarKota} />
 					<CardForecast
 						temperature={mainData.main?.temp}
@@ -189,8 +189,8 @@ function App() {
 						satuanSuhu={satuanSuhu}
 					/>
 				</div>
-				<div className="addOn col-span-8">
-					<div className="flex lg:mt-0 justify-between p-1 mb-4 navToday">
+				<div className="col-span-8 addOn">
+					<div className="flex justify-between p-1 mb-4 lg:mt-0 navToday">
 						<TodayWeekButton
 							setForecastPeriod={setForecastPeriod}
 							setTimeSet={setTimeSet}
@@ -203,7 +203,7 @@ function App() {
 						/>
 						<ConverButton setSatuanSuhu={setSatuanSuhu} />
 					</div>
-					<div className="wrapperForecast flex gap-4 overflow-scroll lg:justify-between lg:overflow-visible">
+					<div className="flex gap-4 overflow-scroll wrapperForecast lg:justify-between lg:overflow-visible">
 						<div>
 							<DayForecast
 								tempFore={tempForecast0}
@@ -245,22 +245,22 @@ function App() {
 							/>
 						</div>
 					</div>
-					<h1 className="mb-3 text-lg font-semibold ps-1 mt-6">
+					<h1 className="mt-6 mb-3 text-lg font-semibold ps-1">
 						Weekly Highlight
 					</h1>
 					<Chart data={ChartData} satuanSuhu={satuanSuhu} theme={theme} />
 				</div>
 			</div>
 
-			<div className="container mx-auto pb-5 px-5 lg:px-0 dark:text-white">
-				<h1 className="mb-3 text-lg font-semibold ps-1 mt-1">
+			<div className="container px-5 pb-5 mx-auto lg:px-0 dark:text-white">
+				<h1 className="mt-1 mb-3 text-lg font-semibold ps-1">
 					Today's Highlight
 				</h1>
-				<div className="lg:px-0 lg:grid lg:grid-cols-12 gap-4">
-					<div className="HeatMap col-span-4 lg:mb-0 mb-4 order-2">
+				<div className="gap-4 lg:px-0 lg:grid lg:grid-cols-12">
+					<div className="order-2 col-span-4 mb-4 HeatMap lg:mb-0">
 						<Map latitude={latitude} longitude={longitude} />
 					</div>
-					<div className="todayHighlight col-span-8 grid grid-cols-12 gap-4">
+					<div className="grid grid-cols-12 col-span-8 gap-4 todayHighlight">
 						<div className="col-span-6">
 							<Highlight
 								icon={humidityIcon}

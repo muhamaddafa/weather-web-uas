@@ -99,21 +99,21 @@ const CardForecast = (props) => {
 	}
 
 	return (
-		<div className="CardForecast bg-slate-50 shadow-lg w-auto lg:w-full rounded-2xl mb-4 pt-6 pb-8 dark:bg-gray-800 dark:shadow-gray-900">
-			<div className="CardContent lg:flex-col items-center justify-around lg:justify-normal">
+		<div className="w-auto pt-6 pb-8 mb-4 shadow-lg CardForecast bg-slate-50 lg:w-full rounded-2xl dark:bg-gray-800 dark:shadow-gray-900">
+			<div className="items-center justify-around CardContent lg:flex-col lg:justify-normal">
 				<div className="image">
-					<img src={iconFinal} alt="Weather" className="w-64 lg:w-64 mx-auto" />
+					<img src={iconFinal} alt="Weather" className="w-64 mx-auto lg:w-64" />
 				</div>
-				<div className="description lg:block flex-col lg:text-start text-center gap-0 items-center lg:gap-0 lg:mt-10 lg:w-full lg:px-5 dark:text-white">
-					<h1 className="text-7xl font-medium mt-3 lg:mt-0 lg:mb-6 lg:text-7xl h-max">
+				<div className="flex-col items-center gap-0 text-center description lg:block lg:text-start lg:gap-0 lg:mt-10 lg:w-full lg:px-5 dark:text-white">
+					<h1 className="mt-3 font-medium text-7xl lg:mt-0 lg:mb-6 lg:text-7xl h-max">
 						{hasilSuhu}&deg;{props.satuanSuhu}
 					</h1>
 					<div className="mt-7 lg:mt-0">
-						<div className="hariDanJam flex justify-center lg:justify-start mb-3">
+						<div className="flex justify-center mb-3 hariDanJam lg:justify-start">
 							<p>{day},</p>
-							<p className="ml-2 opacity-50 font-medium">{time}</p>
+							<p className="ml-2 font-medium opacity-50">{time}</p>
 						</div>
-						<div className="keterangan mb-3">
+						<div className="mb-3 keterangan">
 							<p>{props.description}</p>
 						</div>
 						<p>{props.cityName}</p>

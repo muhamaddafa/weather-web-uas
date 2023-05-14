@@ -18,7 +18,7 @@ const MapComponents = (props) => {
 	});
 
 	return isLoaded ? (
-		<div className="HeatMap flex justify-center items-center bg-slate-50 shadow-lg rounded-xl lg:h-full lg:w-full h-96 border-gray-300 border-2 dark:bg-gray-800 dark:shadow-gray-900 dark:border-gray-500">
+		<div className="flex items-center justify-center border-2 border-gray-300 shadow-lg HeatMap bg-slate-50 rounded-xl lg:h-full lg:w-full h-96 dark:bg-gray-800 dark:shadow-gray-900 dark:border-gray-500">
 			<GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
 				<Marker position={center} />
 			</GoogleMap>
