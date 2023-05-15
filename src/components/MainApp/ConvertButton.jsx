@@ -1,4 +1,4 @@
-const ConverButton = (props) => {
+const ConvertButton = (props) => {
   const fahrenheitButton = document.querySelector("#fahrenheitButton");
   const celciusButton = document.querySelector("#celciusButton");
   return (
@@ -60,4 +60,4 @@ const ConverButton = (props) => {
   );
 };
 
-export default ConverButton;
+export default ConvertButton;
