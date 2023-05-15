@@ -1,12 +1,12 @@
 const ConvertButton = (props) => {
-  const fahrenheitButton = document.querySelector("#fahrenheitButton");
-  const celciusButton = document.querySelector("#celciusButton");
   return (
     <div className="flex button convert">
       <button
         id="celciusButton"
         className="p-2 font-bold text-blue-500 duration-200 bg-slate-300 dark:duration-200 rounded-s-2xl innerShadow dark:bg-gray-800"
         onClick={() => {
+          const fahrenheitButton = document.querySelector("#fahrenheitButton");
+          const celciusButton = document.querySelector("#celciusButton");
           celciusButton.classList.add("innerShadow");
           celciusButton.classList.add("dark:innerShadow");
           fahrenheitButton.classList.remove("innerShadow");
@@ -31,9 +31,10 @@ const ConvertButton = (props) => {
       </button>
       <button
         id="fahrenheitButton"
-        bg
         className="px-5 duration-200 dark:duration-200 bg-slate-200 dark:bg-gray-700 rounded-e-2xl"
         onClick={() => {
+          const fahrenheitButton = document.querySelector("#fahrenheitButton");
+          const celciusButton = document.querySelector("#celciusButton");
           celciusButton.classList.remove("innerShadow");
           celciusButton.classList.remove("dark:innerShadow");
           fahrenheitButton.classList.add("innerShadow");
