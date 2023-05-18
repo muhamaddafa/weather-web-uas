@@ -29,7 +29,7 @@ const MapComponents = (props) => {
 			<MapContainer
 				ref={mapRef}
 				center={position}
-				zoom={20}
+				zoom={5}
 				scrollWheelZoom={true}
 				style={{ width: "100%", height: "100%", borderRadius: "0.75rem" }}
 			>
@@ -40,7 +40,10 @@ const MapComponents = (props) => {
 				<Marker position={position} icon={markIcon}>
 					<Popup>
 						<div>
-							<h1>Lol</h1>
+							<h1>Humidity : {props.humidity} %</h1>
+							<h1>Pressure : {props.pressure} hPa</h1>
+							<h1>Wind Speed : {props.wind} km/h</h1>
+							<h1>Visibility : {props.visibility} km</h1>
 						</div>
 					</Popup>
 				</Marker>
