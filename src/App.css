@@ -127,5 +127,17 @@ a {
 	animation-delay: 3.8s;
   }
 
-
-
+  ::-webkit-scrollbar {
+	height: 5px;
+	width: 5px;
+	background: var(--background);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+	background: #66CCC1;
+	-webkit-border-radius: 1ex;
+  }
+  
+  ::-webkit-scrollbar-corner {
+	background: var(--background);
+  }
