@@ -1,5 +1,4 @@
 import { motion} from "framer-motion";
-import { useRef } from "react";
 
 const imageAnimate={
     offscreen:{x:-100, opacity:0},
