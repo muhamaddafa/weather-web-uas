@@ -12,14 +12,14 @@ const textAnimate={
 
 const Header = (props) => {
     return (
-        <header className="min-h-screen flex flex-col justify-evenly items-center relative text-center">
+        <header className="relative flex flex-col items-center min-h-screen text-center justify-evenly">
             <motion.h1 
             initial={"offscreen"}
             whileInView={"onscreen"}
             viewport={{once:false, amount:0.5}}
             transition={{staggerChildren:0.5}}
             variants={textAnimate}
-            className="title text-white font-bold text-7xl drop-shadow-text-md lg:drop-shadow-text-lg">Our Team</motion.h1>
+            className="font-bold text-white title text-7xl drop-shadow-text-md lg:drop-shadow-text-lg">Our Team</motion.h1>
         </header>
     );
 };

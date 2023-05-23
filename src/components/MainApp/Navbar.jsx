@@ -12,8 +12,8 @@ const NavBar = (props) => {
 					<Link to="/" className="flex items-center gap-3 logo">
 						<img src={logo} alt="logo" className="w-12" />
 						<div className="textLogo">
-							<h1 className="text-2xl">Weather Web App</h1>
-							<p className="text-xs opacity-40">Your weather prediction.</p>
+							<h1 className="text-2xl">Weather Whisperer</h1>
+							<p className="text-xs opacity-40">Forecast with Precision, Rain or Shine!</p>
 						</div>
 					</Link>
 					<div className="items-center hidden gap-8 md:flex linkNav">
