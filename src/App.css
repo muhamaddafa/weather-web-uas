@@ -33,6 +33,13 @@ a {
 	animation: slideDown 0.6s;
 }
 
+.leaflet-popup-content {
+	background-color: white;
+	border-radius: 4px;
+	color: blue;
+    width: auto;
+}
+
 @keyframes slideDown {
 	0% {
 		opacity: 0;

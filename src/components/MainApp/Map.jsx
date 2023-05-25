@@ -1,17 +1,21 @@
 import { MapContainer, TileLayer, Marker, Popup, Polygon } from "react-leaflet";
 import L from "leaflet";
 import { useEffect, useRef } from "react";
+import { useState } from "react";
 import "leaflet/dist/leaflet.css";
 import mark from "../../asset/img/Marker.svg";
 import { statesData } from "../../asset/data";
-import React from "react"
+import React from "react";
+import "../../App.css";
+
 
 const MapComponents = (props) => {
 	const mapRef = useRef(null);
+	const [marker, setMarker] = useState(null);
 
 	useEffect(() => {
 		if (mapRef.current) {
-			mapRef.current.flyTo([props.latitude, props.longitude], 17);
+			mapRef.current.flyTo([props.latitude, props.longitude], 5);
 		}
 	}, [props.latitude, props.longitude]);
 
@@ -54,67 +58,87 @@ const MapComponents = (props) => {
 					const polygonRef = React.createRef();
 
     				return (
-      				<Polygon
-					  	ref={polygonRef}
-        				pathOptions={{
-          				fillColor: '#FD8D3C',
-          				fillOpacity: 0.7,
-          				weight: 2,
-          				opacity: 1,
-          				dashArray: 3,
-          				color: 'white',
-        			}}
-        			positions={coordinates}
-        			eventHandlers={{
+      						<Polygon
+					  			ref={polygonRef}
+        						pathOptions={{
+          							fillColor: 'lightblue',
+          							fillOpacity: 0.7,
+          							weight: 2,
+          							opacity: 1,
+          							dashArray: 0,
+          							color: 'white',
+        						}}
+        						positions={coordinates}
 
-          				mouseover: (e) => {
-            				const layer = e.target;
-            				layer.setStyle({
-              					dashArray: '',
-              					fillColor: '#BD0026',
-              					fillOpacity: 0.7,
-              					weight: 2,
-              					opacity: 1,
-              					color: 'white',
-            				});
-          				},
+        						eventHandlers={{
 
-          				mouseout: (e) => {
-            				const layer = e.target;
-            				layer.setStyle({
-              					fillOpacity: 0.7,
-              					weight: 2,
-              					dashArray: '3',
-              					color: 'white',
-              					fillColor: '#FD8D3C',
-            				});
-          				},
+          							mouseover: (e) => {
+            							const layer = e.target;
 
-          				click: (e) => {
-							const polygon = polygonRef.current;
-							const bounds = polygon.getBounds();
-							const centroid = bounds.getCenter();
-							const map = polygon._map;
+            							layer.setStyle({
+              								dashArray: 0,
+              								fillColor: 'blue',
+              								fillOpacity: 0.7,
+              								weight: 2,
+              								opacity: 1,
+              								color: 'white',
+            							});
+          							},
+
+          							mouseout: (e) => {
+            							const layer = e.target;
+
+            							layer.setStyle({
+              								fillOpacity: 0.7,
+              								weight: 2,
+              								dashArray: 0,
+              								color: 'white',
+              								fillColor: 'lightblue',
+            							});
+          							},
+
+          							click: (e) => {
+											const polygon = polygonRef.current;
+											const bounds = polygon.getBounds();
+											const centroid = bounds.getCenter();
+											const map = polygon._map;
 				
-							map.flyTo(centroid, 7); 
-						},
+											map.flyTo(centroid, 7); 
 
-        			}}
-      				/>
-    				);
+											if (marker) {
+												map.removeLayer(marker); 
+							  				}
+
+											const position = centroid;
+											const properties = state.properties;
+											const newMarker = L.marker(position, { icon: markIcon }); 
+
+											const latitude = properties.Latitude;
+											const longitude = properties.Longitude;
+
+											console.log(properties?.Latitude);
+
+											newMarker.addTo(map); 
+
+											newMarker.bindPopup( 
+												'<div>' +
+													'<h1>' + '<b>' + properties.Provinsi + '</b>' + '</h1>' +
+													'<br>' +
+													'<h1>' + 'Humidity: ' + props.humidity + ' %' + '</h1>' +
+													'<h1>' + 'Pressure: ' + props.pressure + ' hPa' + '</h1>' +
+													'<h1>' + 'Wind: ' + props.wind + ' km/h' + '</h1>' +
+													'<h1>' + 'Visibility: ' + props.visibility + ' km' + '</h1>' +
+												'</div>'
+											);
+
+											setMarker(newMarker); 
+									},
+
+        						}}
+      						/>
+    					);
   					})
 				}				
-
-				<Marker position={position} icon={markIcon}>
-					<Popup>
-						<div>
-							<h1>Humidity : {props.humidity} %</h1>
-							<h1>Pressure : {props.pressure} hPa</h1>
-							<h1>Wind Speed : {props.wind} km/h</h1>
-							<h1>Visibility : {props.visibility} km</h1>
-						</div>
-					</Popup>
-				</Marker>
 			</MapContainer>
 		</div>
 	);
