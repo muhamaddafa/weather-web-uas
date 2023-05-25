@@ -265,7 +265,7 @@ function App() {
 						</h1>
 						<div className="gap-4 lg:px-0 lg:grid lg:grid-cols-12">
 							<div className="order-2 col-span-4 mb-4 HeatMap lg:mb-0">
-								<Map latitude={latitude} longitude={longitude} humidity={mainData.main?.humidity} pressure={mainData.main?.pressure} wind={mainData.wind?.speed?.toFixed(0)} visibility={mainData.visibility / 1000}/>
+								<Map setLat={setLat} setLng={setLng} latitude={latitude} longitude={longitude} humidity={mainData.main?.humidity} pressure={mainData.main?.pressure} wind={mainData.wind?.speed?.toFixed(0)} visibility={mainData.visibility / 1000}/>
 							</div>
 							<div className="grid grid-cols-12 col-span-8 gap-4 todayHighlight">
 								<div className="col-span-6">
