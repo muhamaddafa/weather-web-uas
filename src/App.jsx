@@ -27,8 +27,8 @@ function App() {
 	const pressureTitle = "Pressure";
 	const [mainData, setMainData] = useState("");
 	const [ChartData, setChartData] = useState("");
-	let [latitude, setLat] = useState("");
-	let [longitude, setLng] = useState("");
+	const [latitude, setLat] = useState("");
+	const [longitude, setLng] = useState("");
 	const [theme, setTheme] = useState("light");
 	const [forecastPeriod, setForecastPeriod] = useState("today");
 	const [varKota, setVarKota] = useState("");
@@ -210,7 +210,7 @@ function App() {
 								/>
 								<ConvertButton setSatuanSuhu={setSatuanSuhu} />
 							</div>
-							<div className="flex gap-4 overflow-scroll wrapperForecast lg:justify-between lg:overflow-visible">
+							<div className="flex gap-4 pb-2 overflow-scroll pe-2 wrapperForecast lg:justify-between xl:overflow-visible xl:pe-0 xl:pb-0">
 								<div>
 									<DayForecast
 										tempFore={tempForecast0}
@@ -265,7 +265,15 @@ function App() {
 						</h1>
 						<div className="gap-4 lg:px-0 lg:grid lg:grid-cols-12">
 							<div className="order-2 col-span-4 mb-4 HeatMap lg:mb-0">
-								<Map setLat={setLat} setLng={setLng} latitude={latitude} longitude={longitude} humidity={mainData.main?.humidity} pressure={mainData.main?.pressure} wind={mainData.wind?.speed?.toFixed(0)} visibility={mainData.visibility / 1000}/>
+								<Map
+									setVarKota={setVarKota}
+									latitude={latitude}
+									longitude={longitude}
+									humidity={mainData.main?.humidity}
+									pressure={mainData.main?.pressure}
+									wind={mainData.wind?.speed?.toFixed(0)}
+									visibility={mainData.visibility / 1000}
+								/>
 							</div>
 							<div className="grid grid-cols-12 col-span-8 gap-4 todayHighlight">
 								<div className="col-span-6">

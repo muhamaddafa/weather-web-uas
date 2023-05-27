@@ -1,29 +1,23 @@
-import { MapContainer, TileLayer, Marker, Popup, Polygon } from "react-leaflet";
+import { MapContainer, TileLayer, Polygon, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
-import { useEffect, useRef } from "react";
-import { useState } from "react";
+import { useRef, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import mark from "../../asset/img/Marker.svg";
 import { statesData } from "../../asset/data";
 import React from "react";
 import "../../App.css";
 
-
 const MapComponents = (props) => {
 	const mapRef = useRef(null);
-	const [marker, setMarker] = useState(null);
+	const marker = null;
 
 	useEffect(() => {
 		if (mapRef.current) {
-			mapRef.current.flyTo([props.latitude, props.longitude], 5);
+			mapRef.current.flyTo([props.latitude, props.longitude], 7);
 		}
 	}, [props.latitude, props.longitude]);
 
 	let position = [props.latitude, props.longitude];
-
-	if (!props.latitude) {
-		return null;
-	}
 
 	const markIcon = new L.Icon({
 		iconUrl: mark,
@@ -43,102 +37,81 @@ const MapComponents = (props) => {
 					attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
 					url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=FQ5ls4w6O8WhuHdIrSFo"
 				/>
-      			{
-  					statesData.features.map((state) => {
-    				let coordinates;
+				{statesData.features.map((state) => {
+					let coordinates;
 
-    				if (state.geometry.type === 'Polygon') {
-      					coordinates = [state.geometry.coordinates[0].map((item) => [item[1], item[0]])];
-    				} else if (state.geometry.type === 'MultiPolygon') {
-      					coordinates = state.geometry.coordinates.map((polygon) =>
-        					polygon[0].map((item) => [item[1], item[0]])
-      					);
-    				}
+					if (state.geometry.type === "Polygon") {
+						coordinates = [
+							state.geometry.coordinates[0].map((item) => [item[1], item[0]]),
+						];
+					} else if (state.geometry.type === "MultiPolygon") {
+						coordinates = state.geometry.coordinates.map((polygon) =>
+							polygon[0].map((item) => [item[1], item[0]])
+						);
+					}
 
 					const polygonRef = React.createRef();
+					return (
+						<Polygon
+							ref={polygonRef}
+							pathOptions={{
+								fillColor: "lightblue",
+								fillOpacity: 0.7,
+								weight: 2,
+								opacity: 1,
+								dashArray: 0,
+								color: "white",
+							}}
+							positions={coordinates}
+							eventHandlers={{
+								mouseover: (e) => {
+									const layer = e.target;
 
-    				return (
-      						<Polygon
-					  			ref={polygonRef}
-        						pathOptions={{
-          							fillColor: 'lightblue',
-          							fillOpacity: 0.7,
-          							weight: 2,
-          							opacity: 1,
-          							dashArray: 0,
-          							color: 'white',
-        						}}
-        						positions={coordinates}
+									layer.setStyle({
+										dashArray: 0,
+										fillColor: "blue",
+										fillOpacity: 0.7,
+										weight: 2,
+										opacity: 1,
+										color: "white",
+									});
+								},
 
-        						eventHandlers={{
+								mouseout: (e) => {
+									const layer = e.target;
 
-          							mouseover: (e) => {
-            							const layer = e.target;
+									layer.setStyle({
+										fillOpacity: 0.7,
+										weight: 2,
+										dashArray: 0,
+										color: "white",
+										fillColor: "lightblue",
+									});
+								},
 
-            							layer.setStyle({
-              								dashArray: 0,
-              								fillColor: 'blue',
-              								fillOpacity: 0.7,
-              								weight: 2,
-              								opacity: 1,
-              								color: 'white',
-            							});
-          							},
+								click: (e) => {
+									const polygon = polygonRef.current;
+									const bounds = polygon.getBounds();
+									const centroid = bounds.getCenter();
+									const map = polygon._map;
 
-          							mouseout: (e) => {
-            							const layer = e.target;
+									map.flyTo(centroid, 7);
 
-            							layer.setStyle({
-              								fillOpacity: 0.7,
-              								weight: 2,
-              								dashArray: 0,
-              								color: 'white',
-              								fillColor: 'lightblue',
-            							});
-          							},
+									if (marker) {
+										map.removeLayer(marker);
+									}
 
-          							click: (e) => {
-											const polygon = polygonRef.current;
-											const bounds = polygon.getBounds();
-											const centroid = bounds.getCenter();
-											const map = polygon._map;
-				
-											map.flyTo(centroid, 7); 
+									const properties = state.properties;
 
-											if (marker) {
-												map.removeLayer(marker); 
-							  				}
-
-											const position = centroid;
-											const properties = state.properties;
-											const newMarker = L.marker(position, { icon: markIcon }); 
-
-											const latitude = properties.Latitude;
-											const longitude = properties.Longitude;
-
-											console.log(properties?.Latitude);
-
-											newMarker.addTo(map); 
-
-											newMarker.bindPopup( 
-												'<div>' +
-													'<h1>' + '<b>' + properties.Provinsi + '</b>' + '</h1>' +
-													'<br>' +
-													'<h1>' + 'Humidity: ' + props.humidity + ' %' + '</h1>' +
-													'<h1>' + 'Pressure: ' + props.pressure + ' hPa' + '</h1>' +
-													'<h1>' + 'Wind: ' + props.wind + ' km/h' + '</h1>' +
-													'<h1>' + 'Visibility: ' + props.visibility + ' km' + '</h1>' +
-												'</div>'
-											);
-
-											setMarker(newMarker); 
-									},
-
-        						}}
-      						/>
-    					);
-  					})
-				}				
+									props.setVarKota(properties.Provinsi);
+								},
+							}}
+						/>
+					);
+				})}
+				<Marker position={position} icon={markIcon}>
+					<Popup>{props.humidity}</Popup>
+				</Marker>
 			</MapContainer>
 		</div>
 	);
