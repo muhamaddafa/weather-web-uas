@@ -94,6 +94,7 @@ function App() {
 				let { lat, lng } = response.results[0].geometry.location;
 				setLat(lat);
 				setLng(lng);
+				console.log(varKota);
 				fetch(
 					`https://open-weather13.p.rapidapi.com/city/latlon/${lat}/${lng}`,
 					options
@@ -266,6 +267,8 @@ function App() {
 						<div className="gap-4 lg:px-0 lg:grid lg:grid-cols-12">
 							<div className="order-2 col-span-4 mb-4 HeatMap lg:mb-0">
 								<Map
+									Provinsi={varKota}
+									kota={mainData.name}
 									setVarKota={setVarKota}
 									latitude={latitude}
 									longitude={longitude}

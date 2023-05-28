@@ -110,7 +110,22 @@ const MapComponents = (props) => {
 					);
 				})}
 				<Marker position={position} icon={markIcon}>
-					<Popup>{props.humidity}</Popup>
+					<Popup>
+						<div className="p-2">
+							<h1>
+								Provinisi: <b>{props.Provinsi}</b>
+							</h1>
+							<h1>
+								Kota: <b>{props.kota}</b>
+							</h1>
+							<br />
+							<b>-- Highlight --</b>
+							<h1>Humidity: {props.humidity + " %"}</h1>
+							<h1>Pressure: {props.pressure + " hPa"}</h1>
+							<h1>Wind Speed: {props.wind + " km/h"}</h1>
+							<h1>Visibility: {props.visibility + " km"}</h1>
+						</div>
+					</Popup>
 				</Marker>
 			</MapContainer>
 		</div>
