@@ -16,6 +16,7 @@ import wthr13d from "../../asset/img/13d.svg";
 import wthr13n from "../../asset/img/13n.svg";
 import wthr50d from "../../asset/img/50d.svg";
 import wthr50n from "../../asset/img/50n.svg";
+import { useState } from "react";
 
 const DayForecast = (props) => {
 	let iconFinal;
@@ -84,14 +85,40 @@ const DayForecast = (props) => {
 	} else {
 		suhuFinal = Math.ceil((props.tempFore - 273.15) * 1.8 + 32);
 	}
+
+	const [isHovered, setIsHovered] = useState(false);
+
+	const handleMouseEnter = () => {
+		setIsHovered(true);
+	};
+
+	const handleMouseLeave = () => {
+		setIsHovered(false);
+	};
+
 	return (
 		<div className="cardDayForecast">
 			<div className="p-6 text-center border-2 border-gray-300 shadow-lg cardDayForecastContent rounded-xl bg-slate-50 dark:shadow-gray-900 dark:border-gray-500 dark:shadow-md dark:text-white dark:bg-gray-800">
 				<div className="waktu">
 					<h1>{props.waktu}</h1>
 				</div>
-				<div className="my-3 imgForecast w-max">
-					<img src={iconFinal} alt="Forecast" className="w-24" />
+				<div className="relative my-3 imgForecast w-max">
+					<img
+						id="iconForecast"
+						src={iconFinal}
+						alt="Forecast"
+						className="w-24"
+						onMouseEnter={handleMouseEnter}
+						onMouseLeave={handleMouseLeave}
+					/>
+					{isHovered && (
+						<h1
+							id="descIcon"
+							className="absolute p-2 shadow-md left-20 rounded-xl bottom-20 w-max bg-slate-200 dark:bg-slate-500"
+						>
+							{props.description}
+						</h1>
+					)}
 				</div>
 				<div className="forecastTemp">
 					<h1>
