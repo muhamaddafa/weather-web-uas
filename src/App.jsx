@@ -93,87 +93,30 @@ function App() {
 				"X-RapidAPI-Host": "open-weather13.p.rapidapi.com",
 			},
 		};
-		Geocode.fromAddress(varKota).then(
-			(response) => {
-				let { lat, lng } = response.results[0].geometry.location;
-				setLat(lat);
-				setLng(lng);
-				console.log(varKota);
-				fetch(
-					`https://open-weather13.p.rapidapi.com/city/latlon/${lat}/${lng}`,
-					options
-				)
-					.then((response) => response.json())
-					.then((response) => {
-						const data = response;
-						setMainData(data);
-						setIsChange(false);
-					})
-					.catch((err) => console.error(err));
-
-				fetch(
-					`https://open-weather13.p.rapidapi.com/city/fivedaysforcast/${lat}/${lng}`,
-					options
-				)
-					.then((response) => response.json())
-					.then((response) => {
-						let data = response;
-						setChartData(data);
-						let temp0 = response.list[ramalan1].main.temp;
-						setTemp0(temp0);
-						const waktu0 = response.list[ramalan1].dt_txt
-							.split(" ")
-							[timeSet].slice(slicing[0], slicing[1]);
-						setTime0(waktu0);
-						let weather0 = response.list[ramalan1].weather[0].icon;
-						setIcon0(weather0);
-
-						let temp1 = response.list[ramalan2].main.temp;
-						setTemp1(temp1);
-						const waktu1 = response.list[ramalan2].dt_txt
-							.split(" ")
-							[timeSet].slice(slicing[0], slicing[1]);
-						setTime1(waktu1);
-						let weather1 = response.list[ramalan2].weather[0].icon;
-						setIcon1(weather1);
-
-						let temp2 = response.list[ramalan3].main.temp;
-						setTemp2(temp2);
-						const waktu2 = response.list[ramalan3].dt_txt
-							.split(" ")
-							[timeSet].slice(slicing[0], slicing[1]);
-						setTime2(waktu2);
-						let weather2 = response.list[ramalan3].weather[0].icon;
-						setIcon2(weather2);
-
-						let temp3 = response.list[ramalan4].main.temp;
-						setTemp3(temp3);
-						const waktu3 = response.list[ramalan4].dt_txt
-							.split(" ")
-							[timeSet].slice(slicing[0], slicing[1]);
-						setTime3(waktu3);
-						let weather3 = response.list[ramalan4].weather[0].icon;
-						setIcon3(weather3);
-
-						let temp4 = response.list[ramalan5].main.temp;
-						setTemp4(temp4);
-						const waktu4 = response.list[ramalan5].dt_txt
-							.split(" ")
-							[timeSet].slice(slicing[0], slicing[1]);
-						setTime4(waktu4);
-						let weather4 = response.list[ramalan5].weather[0].icon;
-						setIcon4(weather4);
-					})
-					.catch((err) => console.error(err));
-			},
-			(error) => {
-				console.error(error);
-			}
-		);
+		Geocode.fromAddress(varKota).then((response) => {
+			let { lat, lng } = response.results[0].geometry.location;
+			setLat(lat);
+			setLng(lng);
+			fetch(
+				`https://open-weather13.p.rapidapi.com/city/latlon/${lat}/${lng}`,
+				options
+			)
+				.then((response) => response.json())
+				.then((response) => {
+					const data = response;
+					setMainData(data);
+					setIsChange(false);
+					setForecastPeriod("today");
+					setTimeSet(1);
+					setSlcing([0, 5]);
+				})
+				.catch((err) => console.error(err));
+		});
 	}, [varKota]);
 
 	useEffect(() => {
 		setChangeTodayWeekly(true);
+		Geocode.setApiKey("AIzaSyA-fSQhO00teTl-vSip_I9qYh-zaedPv-A");
 		const options = {
 			method: "GET",
 			headers: {
@@ -181,62 +124,67 @@ function App() {
 				"X-RapidAPI-Host": "open-weather13.p.rapidapi.com",
 			},
 		};
-		fetch(
-			`https://open-weather13.p.rapidapi.com/city/fivedaysforcast/${latitude}/${longitude}`,
-			options
-		)
-			.then((response) => response.json())
-			.then((response) => {
-				let data = response;
-				setChartData(data);
-				setChangeTodayWeekly(false);
-				let temp0 = response.list[ramalan1].main.temp;
-				setTemp0(temp0);
-				const waktu0 = response.list[ramalan1].dt_txt
-					.split(" ")
-					[timeSet].slice(slicing[0], slicing[1]);
-				setTime0(waktu0);
-				let weather0 = response.list[ramalan1].weather[0].icon;
-				setIcon0(weather0);
+		Geocode.fromAddress(varKota).then((response) => {
+			let { lat, lng } = response.results[0].geometry.location;
+			setLat(lat);
+			setLng(lng);
+			fetch(
+				`https://open-weather13.p.rapidapi.com/city/fivedaysforcast/${lat}/${lng}`,
+				options
+			)
+				.then((response) => response.json())
+				.then((response) => {
+					let data = response;
+					setChartData(data);
+					setChangeTodayWeekly(false);
+					let temp0 = response.list[ramalan1].main.temp;
+					setTemp0(temp0);
+					const waktu0 = response.list[ramalan1].dt_txt
+						.split(" ")
+						[timeSet].slice(slicing[0], slicing[1]);
+					setTime0(waktu0);
+					let weather0 = response.list[ramalan1].weather[0].icon;
+					setIcon0(weather0);
 
-				let temp1 = response.list[ramalan2].main.temp;
-				setTemp1(temp1);
-				const waktu1 = response.list[ramalan2].dt_txt
-					.split(" ")
-					[timeSet].slice(slicing[0], slicing[1]);
-				setTime1(waktu1);
-				let weather1 = response.list[ramalan2].weather[0].icon;
-				setIcon1(weather1);
+					let temp1 = response.list[ramalan2].main.temp;
+					setTemp1(temp1);
+					const waktu1 = response.list[ramalan2].dt_txt
+						.split(" ")
+						[timeSet].slice(slicing[0], slicing[1]);
+					setTime1(waktu1);
+					let weather1 = response.list[ramalan2].weather[0].icon;
+					setIcon1(weather1);
 
-				let temp2 = response.list[ramalan3].main.temp;
-				setTemp2(temp2);
-				const waktu2 = response.list[ramalan3].dt_txt
-					.split(" ")
-					[timeSet].slice(slicing[0], slicing[1]);
-				setTime2(waktu2);
-				let weather2 = response.list[ramalan3].weather[0].icon;
-				setIcon2(weather2);
+					let temp2 = response.list[ramalan3].main.temp;
+					setTemp2(temp2);
+					const waktu2 = response.list[ramalan3].dt_txt
+						.split(" ")
+						[timeSet].slice(slicing[0], slicing[1]);
+					setTime2(waktu2);
+					let weather2 = response.list[ramalan3].weather[0].icon;
+					setIcon2(weather2);
 
-				let temp3 = response.list[ramalan4].main.temp;
-				setTemp3(temp3);
-				const waktu3 = response.list[ramalan4].dt_txt
-					.split(" ")
-					[timeSet].slice(slicing[0], slicing[1]);
-				setTime3(waktu3);
-				let weather3 = response.list[ramalan4].weather[0].icon;
-				setIcon3(weather3);
+					let temp3 = response.list[ramalan4].main.temp;
+					setTemp3(temp3);
+					const waktu3 = response.list[ramalan4].dt_txt
+						.split(" ")
+						[timeSet].slice(slicing[0], slicing[1]);
+					setTime3(waktu3);
+					let weather3 = response.list[ramalan4].weather[0].icon;
+					setIcon3(weather3);
 
-				let temp4 = response.list[ramalan5].main.temp;
-				setTemp4(temp4);
-				const waktu4 = response.list[ramalan5].dt_txt
-					.split(" ")
-					[timeSet].slice(slicing[0], slicing[1]);
-				setTime4(waktu4);
-				let weather4 = response.list[ramalan5].weather[0].icon;
-				setIcon4(weather4);
-			})
-			.catch((err) => console.error(err));
-	}, [forecastPeriod]);
+					let temp4 = response.list[ramalan5].main.temp;
+					setTemp4(temp4);
+					const waktu4 = response.list[ramalan5].dt_txt
+						.split(" ")
+						[timeSet].slice(slicing[0], slicing[1]);
+					setTime4(waktu4);
+					let weather4 = response.list[ramalan5].weather[0].icon;
+					setIcon4(weather4);
+				})
+				.catch((err) => console.error(err));
+		});
+	}, [forecastPeriod, varKota, timeSet, slicing, ramalan1]);
 
 	return (
 		<>
