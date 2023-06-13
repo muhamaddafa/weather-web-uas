@@ -12,6 +12,7 @@ import ConvertButton from "./components/MainApp/ConvertButton";
 import SearchBar from "./components/MainApp/SearchBar";
 import TodayWeekButton from "./components/MainApp/TodayWeekButton";
 import LoadingPage from "./pages/LoadingPage";
+import LoadingTodayWeek from "./pages/LoadingTodayWeek";
 import Footer from "./components/MainApp/Footer";
 import humidityIcon from "./asset/img/humidityIcon.svg";
 import windIcon from "./asset/img/windStatusIcon.svg";
@@ -25,6 +26,8 @@ function App() {
 	const visibilityTitle = "Visibility";
 	const windTitle = "Wind Status";
 	const pressureTitle = "Pressure";
+	const [isChange, setIsChange] = useState(true);
+	const [isChangeTodayWeekly, setChangeTodayWeekly] = useState(false);
 	const [mainData, setMainData] = useState("");
 	const [ChartData, setChartData] = useState("");
 	const [latitude, setLat] = useState("");
@@ -81,6 +84,7 @@ function App() {
 	}, []);
 
 	useEffect(() => {
+		setIsChange(true);
 		Geocode.setApiKey("AIzaSyA-fSQhO00teTl-vSip_I9qYh-zaedPv-A");
 		const options = {
 			method: "GET",
@@ -103,6 +107,7 @@ function App() {
 					.then((response) => {
 						const data = response;
 						setMainData(data);
+						setIsChange(false);
 					})
 					.catch((err) => console.error(err));
 
@@ -165,22 +170,77 @@ function App() {
 				console.error(error);
 			}
 		);
-	}, [
-		forecastPeriod,
-		ramalan1,
-		ramalan2,
-		ramalan3,
-		ramalan4,
-		ramalan5,
-		varKota,
-		satuanSuhu,
-		slicing,
-		timeSet,
-		theme,
-	]);
+	}, [varKota]);
+
+	useEffect(() => {
+		setChangeTodayWeekly(true);
+		const options = {
+			method: "GET",
+			headers: {
+				"X-RapidAPI-Key": "22a04178f8msh37e274e8361cb41p160c4ajsnadd25e9680cd",
+				"X-RapidAPI-Host": "open-weather13.p.rapidapi.com",
+			},
+		};
+		fetch(
+			`https://open-weather13.p.rapidapi.com/city/fivedaysforcast/${latitude}/${longitude}`,
+			options
+		)
+			.then((response) => response.json())
+			.then((response) => {
+				let data = response;
+				setChartData(data);
+				setChangeTodayWeekly(false);
+				let temp0 = response.list[ramalan1].main.temp;
+				setTemp0(temp0);
+				const waktu0 = response.list[ramalan1].dt_txt
+					.split(" ")
+					[timeSet].slice(slicing[0], slicing[1]);
+				setTime0(waktu0);
+				let weather0 = response.list[ramalan1].weather[0].icon;
+				setIcon0(weather0);
+
+				let temp1 = response.list[ramalan2].main.temp;
+				setTemp1(temp1);
+				const waktu1 = response.list[ramalan2].dt_txt
+					.split(" ")
+					[timeSet].slice(slicing[0], slicing[1]);
+				setTime1(waktu1);
+				let weather1 = response.list[ramalan2].weather[0].icon;
+				setIcon1(weather1);
+
+				let temp2 = response.list[ramalan3].main.temp;
+				setTemp2(temp2);
+				const waktu2 = response.list[ramalan3].dt_txt
+					.split(" ")
+					[timeSet].slice(slicing[0], slicing[1]);
+				setTime2(waktu2);
+				let weather2 = response.list[ramalan3].weather[0].icon;
+				setIcon2(weather2);
+
+				let temp3 = response.list[ramalan4].main.temp;
+				setTemp3(temp3);
+				const waktu3 = response.list[ramalan4].dt_txt
+					.split(" ")
+					[timeSet].slice(slicing[0], slicing[1]);
+				setTime3(waktu3);
+				let weather3 = response.list[ramalan4].weather[0].icon;
+				setIcon3(weather3);
+
+				let temp4 = response.list[ramalan5].main.temp;
+				setTemp4(temp4);
+				const waktu4 = response.list[ramalan5].dt_txt
+					.split(" ")
+					[timeSet].slice(slicing[0], slicing[1]);
+				setTime4(waktu4);
+				let weather4 = response.list[ramalan5].weather[0].icon;
+				setIcon4(weather4);
+			})
+			.catch((err) => console.error(err));
+	}, [forecastPeriod]);
+
 	return (
 		<>
-			{!mainData.main?.temp ? (
+			{isChange ? (
 				<LoadingPage />
 			) : (
 				<>
@@ -212,61 +272,67 @@ function App() {
 								<ConvertButton setSatuanSuhu={setSatuanSuhu} />
 							</div>
 							<div className="flex gap-4 pb-2 overflow-scroll pe-2 wrapperForecast lg:justify-between xl:overflow-visible xl:pe-0 xl:pb-0">
-								<div>
-									<DayForecast
-										tempFore={tempForecast0}
-										waktu={waktu0}
-										icon={icon0}
-										satuanSuhu={satuanSuhu}
-										description={
-											ChartData.list[ramalan1]?.weather[0]?.description
-										}
-									/>
-								</div>
-								<div>
-									<DayForecast
-										tempFore={tempForecast1}
-										waktu={waktu1}
-										icon={icon1}
-										satuanSuhu={satuanSuhu}
-										description={
-											ChartData.list[ramalan2]?.weather[0]?.description
-										}
-									/>
-								</div>
-								<div>
-									<DayForecast
-										tempFore={tempForecast2}
-										waktu={waktu2}
-										icon={icon2}
-										satuanSuhu={satuanSuhu}
-										description={
-											ChartData.list[ramalan3]?.weather[0]?.description
-										}
-									/>
-								</div>
-								<div>
-									<DayForecast
-										tempFore={tempForecast3}
-										waktu={waktu3}
-										icon={icon3}
-										satuanSuhu={satuanSuhu}
-										description={
-											ChartData.list[ramalan4]?.weather[0]?.description
-										}
-									/>
-								</div>
-								<div>
-									<DayForecast
-										tempFore={tempForecast4}
-										waktu={waktu4}
-										icon={icon4}
-										satuanSuhu={satuanSuhu}
-										description={
-											ChartData.list[ramalan5]?.weather[0]?.description
-										}
-									/>
-								</div>
+								{isChangeTodayWeekly ? (
+									<LoadingTodayWeek />
+								) : (
+									<>
+										<div>
+											<DayForecast
+												tempFore={tempForecast0}
+												waktu={waktu0}
+												icon={icon0}
+												satuanSuhu={satuanSuhu}
+												description={
+													ChartData.list[ramalan1]?.weather[0]?.description
+												}
+											/>
+										</div>
+										<div>
+											<DayForecast
+												tempFore={tempForecast1}
+												waktu={waktu1}
+												icon={icon1}
+												satuanSuhu={satuanSuhu}
+												description={
+													ChartData.list[ramalan2]?.weather[0]?.description
+												}
+											/>
+										</div>
+										<div>
+											<DayForecast
+												tempFore={tempForecast2}
+												waktu={waktu2}
+												icon={icon2}
+												satuanSuhu={satuanSuhu}
+												description={
+													ChartData.list[ramalan3]?.weather[0]?.description
+												}
+											/>
+										</div>
+										<div>
+											<DayForecast
+												tempFore={tempForecast3}
+												waktu={waktu3}
+												icon={icon3}
+												satuanSuhu={satuanSuhu}
+												description={
+													ChartData.list[ramalan4]?.weather[0]?.description
+												}
+											/>
+										</div>
+										<div>
+											<DayForecast
+												tempFore={tempForecast4}
+												waktu={waktu4}
+												icon={icon4}
+												satuanSuhu={satuanSuhu}
+												description={
+													ChartData.list[ramalan5]?.weather[0]?.description
+												}
+											/>
+										</div>
+									</>
+								)}
 							</div>
 							<h1 className="mt-6 mb-3 text-lg font-semibold ps-1">
 								Weekly Highlight
